@@ -9,6 +9,7 @@ import yu.cohort11.BankAPI.repositories.BillRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BillService {
@@ -17,7 +18,7 @@ public class BillService {
     private BillRepository billRepository;
 
     protected void verifyId(Long id) throws ResourceNotFoundException {
-        if (billRepository.existsById(id) == false) {
+        if (!billRepository.existsById(id)) {
             throw new ResourceNotFoundException("Bill with id " + id + " not found");
         }
     }
@@ -42,7 +43,7 @@ public class BillService {
     public Bill updateBill(Long id, Bill bill){
         verifyId(id);
         for (Bill b: getAllBills()){
-            if (b.getId() == id ){
+            if (Objects.equals(b.getId(), id)){
                 billRepository.save(bill);
             }
         }
@@ -78,5 +79,11 @@ public class BillService {
             }
         }
         return billListByAccountId;
+    }
+
+    public Bill createBillFromAccount(String account_Id, Bill bill) {
+        bill.setAccount_id(account_Id);
+        return billRepository.save(bill);
+
     }
 }
