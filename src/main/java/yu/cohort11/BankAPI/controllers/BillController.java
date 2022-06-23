@@ -20,10 +20,21 @@ public class BillController {
     private BillService billService;
 
 
-    @PostMapping("/bill")
-    public ResponseEntity<?> createBill(@RequestBody Bill bill){
+//    @PostMapping("/bill")
+//    public ResponseEntity<?> createBill(@RequestBody Bill bill){
+//        logger.info("Creating bill" + bill.toString());
+//        billService.createBill(bill);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
+    @PostMapping("/accounts/{accountId}/bills")
+    public ResponseEntity<?> createBillFromAccount(@PathVariable String accountId, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
+<<<<<<< HEAD
         return new ResponseEntity<>(billService.createBill(bill),HttpStatus.CREATED);
+=======
+        billService.createBillFromAccount(accountId, bill);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+>>>>>>> master
     }
 
     @GetMapping("/bill/{id}")
@@ -50,5 +61,18 @@ public class BillController {
         logger.info("deleting customer with id " + id);
         billService.deleteBillById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    //==================================================================================================================
+    //==================================================================================================================
+    @GetMapping("/customer/{id}/bill")
+    public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long id){
+        logger.info("getting all bills by customer id " + id);
+        return new ResponseEntity<>(billService.getAllBillsByCustomerId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("accounts/{id}/bill")
+    public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long id){
+        logger.info("getting all bills by account id " + id);
+        return new ResponseEntity<>(billService.getAllBillsByAccountId(id), HttpStatus.OK);
     }
 }

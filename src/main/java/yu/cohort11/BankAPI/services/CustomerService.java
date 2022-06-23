@@ -42,9 +42,10 @@ public class CustomerService {
         return customer;
     }
 
-    public Optional<Customer> getCustomerById(Long id){
+
+    public Customer getCustomerById(Long id){
         verifyId(id);
-        return customerRepository.findById(id);
+        return customerRepository.findById(id).get();
     }
 
     public  void  deleteCustomerById(Long id){

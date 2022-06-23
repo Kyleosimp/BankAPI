@@ -8,6 +8,7 @@ import yu.cohort11.BankAPI.repositories.BillRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BillService {
@@ -16,7 +17,7 @@ public class BillService {
     private BillRepository billRepository;
 
     protected void verifyId(Long id) throws ResourceNotFoundException {
-        if (billRepository.existsById(id) == false) {
+        if (!billRepository.existsById(id)) {
             throw new ResourceNotFoundException("Bill with id " + id + " not found");
         }
     }
@@ -42,7 +43,7 @@ public class BillService {
     public Bill updateBill(Long id, Bill bill){
         verifyId(id);
         for (Bill b: getAllBills()){
-            if (b.getId() == id ){
+            if (Objects.equals(b.getId(), id)){
                 billRepository.save(bill);
             }
         }
@@ -53,5 +54,36 @@ public class BillService {
     public void deleteBillById(Long id){
         verifyId(id);
         billRepository.deleteById(id);
+    }
+    //==================================================================================================================
+    //==================================================================================================================
+    public List<Bill> getAllBillsByCustomerId(Long id) {
+        List<Bill> billList = new ArrayList<>();
+        billRepository.findAll().forEach(billList::add);
+        List<Bill> billListByCustomerId = new ArrayList<>();
+        for (Bill b: billList){
+            if (b.getId().equals(id)){
+                billListByCustomerId.add(b);
+            }
+        }
+        return billListByCustomerId;
+    }
+
+    public List<Bill> getAllBillsByAccountId(Long id) {
+        List<Bill> billList = new ArrayList<>();
+        billRepository.findAll().forEach(billList::add);
+        List<Bill> billListByAccountId = new ArrayList<>();
+        for (Bill b: billList){
+            if (b.getId().equals(id)){
+                billListByAccountId.add(b);
+            }
+        }
+        return billListByAccountId;
+    }
+
+    public Bill createBillFromAccount(String account_Id, Bill bill) {
+        bill.setAccount_id(account_Id);
+        return billRepository.save(bill);
+
     }
 }
