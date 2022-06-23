@@ -1,4 +1,4 @@
-package yu.cohort11.BankAPI.enums;
+package yu.cohort11.BankAPI.models.enums;
 
 public enum AccountType {
     SAVINGS("savings"),CHECKING("checking"),CREDIT("credit");
