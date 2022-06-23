@@ -18,23 +18,10 @@ Create
 Delete
 Update
 Delete
-
-
-3 =  get methods
-- get all deposits for a specific account (id)
-- get deposits by id
-
-1 = post method
-- create a deposit
-
-1 = put method
-- update a specific existing deposit
-
-1 - delete method
-- delete an exisiting depsit */
-
+*/
     @Autowired
     private DepositsRepos depositsRepos;
+
 
     List<Deposits> depositsList = new ArrayList<>();
 
@@ -48,9 +35,9 @@ Delete
     public List<Deposits> getAllDepositsByAccountID (Long id){
         List<Deposits> depositsList = new ArrayList<>();
         for (Deposits d:getALLDeposits() ){
-//            if(d.getAccount.getId == id){
-//                depositsList.add(d);
-//            }
+           if(d.getAccount().getId() == id){
+               depositsList.add(d);
+          }
 
         }
        return depositsList;
