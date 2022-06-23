@@ -22,7 +22,7 @@ Delete
 */
     @Autowired
     private DepositsRepos depositsRepos;
-    
+
     protected void verifyId(Long id) throws ResourceNotFoundException {
         if (depositsRepos.existsById(id) == false) {
             throw new ResourceNotFoundException("Deposit with id " + id + " not found");
