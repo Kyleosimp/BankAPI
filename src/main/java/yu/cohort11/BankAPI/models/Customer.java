@@ -18,22 +18,21 @@ public class Customer {
     @Column(name = "last_name")
     private  String last_name;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "Customer_id")
-//    @OrderBy
-//    private Set <Address> address;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Customer_id")
+    @OrderBy
+    private Set <Address> address;
 
 
     public Customer() {
     }
 
-    public Customer(Long id, String first_name, String last_name
-                    //, Set<Address> address
+    public Customer(Long id, String first_name, String last_name, Set<Address> address
     ) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
-       // this.address = address;
+        this.address = address;
     }
 
     public Long getId() {
@@ -60,13 +59,13 @@ public class Customer {
         this.last_name = last_name;
     }
 
-//    public Set<Address> getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(Set<Address> address) {
-//        this.address = address;
-//    }
+    public Set<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(Set<Address> address) {
+        this.address = address;
+    }
 
     @Override
     public String toString() {
@@ -74,7 +73,7 @@ public class Customer {
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                //", address=" + address +
+                ", address=" + address +
                 '}';
     }
 }
