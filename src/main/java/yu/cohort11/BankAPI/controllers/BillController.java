@@ -22,10 +22,16 @@ public class BillController {
     private BillService billService;
 
 
-    @PostMapping("/bill")
-    public ResponseEntity<?> createBill(@RequestBody Bill bill){
+//    @PostMapping("/bill")
+//    public ResponseEntity<?> createBill(@RequestBody Bill bill){
+//        logger.info("Creating bill" + bill.toString());
+//        billService.createBill(bill);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
+    @PostMapping("/accounts/{accountId}/bills")
+    public ResponseEntity<?> createBillFromAccount(@PathVariable String accountId, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-        billService.createBill(bill);
+        billService.createBillFromAccount(accountId, bill);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
