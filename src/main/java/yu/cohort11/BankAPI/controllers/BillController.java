@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.BankApiApplication;
+import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
 import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.services.BillService;
 
@@ -19,22 +20,17 @@ public class BillController {
     @Autowired
     private BillService billService;
 
-
 //    @PostMapping("/bill")
 //    public ResponseEntity<?> createBill(@RequestBody Bill bill){
 //        logger.info("Creating bill" + bill.toString());
 //        billService.createBill(bill);
 //        return new ResponseEntity<>(HttpStatus.CREATED);
 //    }
+
     @PostMapping("/accounts/{accountId}/bills")
     public ResponseEntity<?> createBillFromAccount(@PathVariable String accountId, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-<<<<<<< HEAD
-        return new ResponseEntity<>(billService.createBill(bill),HttpStatus.CREATED);
-=======
-        billService.createBillFromAccount(accountId, bill);
-        return new ResponseEntity<>(HttpStatus.CREATED);
->>>>>>> master
+        return new ResponseEntity<>(billService.createBillFromAccount(accountId, bill),HttpStatus.CREATED);
     }
 
     @GetMapping("/bill/{id}")
@@ -62,8 +58,7 @@ public class BillController {
         billService.deleteBillById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    //==================================================================================================================
-    //==================================================================================================================
+
     @GetMapping("/customer/{id}/bill")
     public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long id){
         logger.info("getting all bills by customer id " + id);
