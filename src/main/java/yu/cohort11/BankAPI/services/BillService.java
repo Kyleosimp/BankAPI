@@ -54,4 +54,29 @@ public class BillService {
         verifyId(id);
         billRepository.deleteById(id);
     }
+    //==================================================================================================================
+    //==================================================================================================================
+    public List<Bill> getAllBillsByCustomerId(Long id) {
+        List<Bill> billList = new ArrayList<>();
+        billRepository.findAll().forEach(billList::add);
+        List<Bill> billListByCustomerId = new ArrayList<>();
+        for (Bill b: billList){
+            if (b.getId().equals(id)){
+                billListByCustomerId.add(b);
+            }
+        }
+        return billListByCustomerId;
+    }
+
+    public List<Bill> getAllBillsByAccountId(Long id) {
+        List<Bill> billList = new ArrayList<>();
+        billRepository.findAll().forEach(billList::add);
+        List<Bill> billListByAccountId = new ArrayList<>();
+        for (Bill b: billList){
+            if (b.getId().equals(id)){
+                billListByAccountId.add(b);
+            }
+        }
+        return billListByAccountId;
+    }
 }
