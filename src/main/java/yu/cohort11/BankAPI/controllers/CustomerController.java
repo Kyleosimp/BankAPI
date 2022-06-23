@@ -47,7 +47,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    public ResponseEntity<Optional<Customer>> getCustomerById(@PathVariable Long id) {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
         logger.info("successfully retrieved order with id :" + id);
         return new ResponseEntity<>(this.customerService.getCustomerById(id), HttpStatus.OK);
     }
