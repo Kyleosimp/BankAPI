@@ -8,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.BankApiApplication;
 import yu.cohort11.BankAPI.models.Bill;
-import yu.cohort11.BankAPI.repositories.BillRepository;
 import yu.cohort11.BankAPI.services.BillService;
 
-import java.util.List;
 
 @RestController
 public class BillController {
@@ -25,8 +23,7 @@ public class BillController {
     @PostMapping("/bill")
     public ResponseEntity<?> createBill(@RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-        billService.createBill(bill);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(billService.createBill(bill),HttpStatus.CREATED);
     }
 
     @GetMapping("/bill/{id}")

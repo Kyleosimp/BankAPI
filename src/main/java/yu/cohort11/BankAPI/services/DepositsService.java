@@ -3,6 +3,7 @@ package yu.cohort11.BankAPI.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
 import yu.cohort11.BankAPI.models.Deposits;
 import yu.cohort11.BankAPI.repositories.DepositsRepos;
 
@@ -36,6 +37,12 @@ Delete
     @Autowired
     private DepositsRepos depositsRepos;
 
+    protected void verifyId(Long id) throws ResourceNotFoundException {
+        if (depositsRepos.existsById(id) == false) {
+            throw new ResourceNotFoundException("Deposit with id " + id + " not found");
+        }
+    }
+
     List<Deposits> depositsList = new ArrayList<>();
 
     public List<Deposits> getALLDeposits(){
@@ -46,6 +53,7 @@ Delete
     }
 
     public List<Deposits> getAllDepositsByAccountID (Long id){
+        verifyId(id);
         List<Deposits> depositsList = new ArrayList<>();
         for (Deposits d:getALLDeposits() ){
 //            if(d.getAccount.getId == id){
@@ -59,6 +67,7 @@ Delete
  //   get deposits by id
 
 public Deposits findDepositById(Long id){
+    verifyId(id);
         Deposits deposits1 = null;
         for(Deposits d: getALLDeposits()){
             if(d.getId() == id){
@@ -74,6 +83,7 @@ public void addDeposit(Deposits deposits){
 }
 
 public void deleteDeposit(Long id){
+    verifyId(id);
         depositsRepos.deleteById(id);
 }
 
@@ -82,6 +92,7 @@ public void saveDeposit(Deposits deposits){
 }
 
     public Deposits updateDeposit(Long id, Deposits deposits) {
+        verifyId(id);
         for (Deposits d : getALLDeposits()) {
             if (d.getId() == id ) {
                 depositsRepos.save(deposits);
