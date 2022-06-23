@@ -54,4 +54,17 @@ public class BillController {
         billService.deleteBillById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    //==================================================================================================================
+    //==================================================================================================================
+    @GetMapping("/customer/{id}/bill")
+    public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long id){
+        logger.info("getting all bills by customer id " + id);
+        return new ResponseEntity<>(billService.getAllBillsByCustomerId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("accounts/{id}/bill")
+    public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long id){
+        logger.info("getting all bills by account id " + id);
+        return new ResponseEntity<>(billService.getAllBillsByAccountId(id), HttpStatus.OK);
+    }
 }
