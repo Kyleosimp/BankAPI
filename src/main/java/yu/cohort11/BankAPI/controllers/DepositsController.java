@@ -29,11 +29,11 @@ public class DepositsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/deposits", method = RequestMethod.GET)
-    public ResponseEntity<List<Deposits>> getAllDeposits(){
-        logger.info("successfully retrieved all deposits");
-        return new ResponseEntity<>( depositsService.getALLDeposits(), HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/accounts/deposits", method = RequestMethod.GET)
+//    public ResponseEntity<List<Deposits>> getAllDeposits(){
+//        logger.info("successfully retrieved all deposits");
+//        return new ResponseEntity<>( depositsService.getALLDeposits(), HttpStatus.OK);
+//    }
 
     @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.PUT)
     public ResponseEntity<Deposits> updateDeposits(@PathVariable Long id, @RequestBody Deposits deposits) {
