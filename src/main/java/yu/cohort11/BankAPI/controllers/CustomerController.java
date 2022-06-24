@@ -18,6 +18,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 public class CustomerController {
 
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
@@ -29,7 +30,7 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
 
-    @PostMapping("/Customers")
+    @PostMapping("/customers")
     public ResponseEntity<?> addCustomer(@Validated @RequestBody Customer customer){
         logger.info("Successfully ADDED an order with name :" + customer);
         customerService.saveCustomer(customer);
@@ -40,7 +41,7 @@ public class CustomerController {
     }
 
 
-    @PutMapping("/customer/{id}")
+    @PutMapping("/customers/{id}")
     public ResponseEntity<Optional<Customer>> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
         logger.info("updating customer order with id :" + id);
         return new ResponseEntity (this.customerService.updateCustomer(id,customer), HttpStatus.ACCEPTED);
