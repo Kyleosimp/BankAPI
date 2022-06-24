@@ -4,10 +4,7 @@ import yu.cohort11.BankAPI.models.enums.Medium;
 import yu.cohort11.BankAPI.models.enums.Status;
 import yu.cohort11.BankAPI.models.enums.Transactiontype;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Withdrawal {
@@ -22,11 +19,15 @@ public class Withdrawal {
     private Double amount;
     private String description;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Account account;
+
     public Withdrawal(){
 
     }
 
-    public Withdrawal(Long id, Transactiontype type, String transactionDate, Status status, Medium medium, Double amount, String description) {
+
+    public Withdrawal(Long id, Transactiontype type, String transactionDate, Status status, Medium medium, Double amount, String description, Account account) {
         this.id = id;
         this.type = type;
         this.transactionDate = transactionDate;
@@ -34,6 +35,7 @@ public class Withdrawal {
         this.medium = medium;
         this.amount = amount;
         this.description = description;
+        this.account = account;
     }
 
     public Long getId() {
@@ -94,16 +96,25 @@ public class Withdrawal {
         this.description = description;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     @Override
     public String toString() {
         return "Withdrawal{" +
                 "id=" + id +
-                ", type='" + type + '\'' +
+                ", type=" + type +
                 ", transactionDate='" + transactionDate + '\'' +
-                ", status='" + status + '\'' +
-                ", medium='" + medium + '\'' +
+                ", status=" + status +
+                ", medium=" + medium +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
+                ", account=" + account +
                 '}';
     }
 }
