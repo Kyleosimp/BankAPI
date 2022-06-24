@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.BankApiApplication;
+
 import yu.cohort11.BankAPI.models.Withdrawal;
 import yu.cohort11.BankAPI.services.WithdrawalService;
 
@@ -17,12 +18,14 @@ public class WithdrawalController {
     @Autowired
     private WithdrawalService withdrawalService;
 
-    @PostMapping("/withdrawals")
-    public ResponseEntity<?> addWithdrawal(@RequestBody Withdrawal withdrawal){
+    @PostMapping("accounts/{id}/withdrawals")
+    public ResponseEntity<?> createWithdrawal(@RequestBody Withdrawal withdrawal){
         logger.info("Creating withdrawal " + withdrawal);
         withdrawalService.saveWithdrawal(withdrawal);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
     @GetMapping("/withdrawals")
     public ResponseEntity<?> getAllWithdrawals() {
         logger.info("Getting all withdrawals");
@@ -43,6 +46,13 @@ public class WithdrawalController {
     public ResponseEntity<?> getWithdrawalById(@PathVariable Long id) {
         logger.info("finding withdrawal with id " + id);
         return new ResponseEntity<>(withdrawalService.getWithdrawalById(id),HttpStatus.OK);
+    }
+
+
+    @GetMapping("accounts/{id}/withdrawals")
+    public ResponseEntity<?> getAllWithdrawalsByAccountId(@PathVariable Long id){
+        logger.info("getting all bills by account id " + id);
+        return new ResponseEntity<>(withdrawalService.getAllWithdrawalsByAccountId(id), HttpStatus.OK);
     }
 
 }

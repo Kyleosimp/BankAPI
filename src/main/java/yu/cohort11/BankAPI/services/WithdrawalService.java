@@ -2,6 +2,7 @@ package yu.cohort11.BankAPI.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.models.Withdrawal;
 import yu.cohort11.BankAPI.repositories.WithdrawalRepository;
 
@@ -22,8 +23,8 @@ public class WithdrawalService {
         withdrawalRepository.findAll().forEach(withdrawals::add);
         return withdrawals;
     }
-    public Optional<Withdrawal> getWithdrawalById(Long id){
-        return withdrawalRepository.findById(id);
+    public Withdrawal getWithdrawalById(Long id){
+        return withdrawalRepository.findById(id).get();
     }
     public Withdrawal updateWithdrawal(Long id, Withdrawal withdrawal){
         for (Withdrawal w: getAllWithdrawals()){
@@ -35,5 +36,19 @@ public class WithdrawalService {
     }
     public void deleteWithdrawal(Long id){
         withdrawalRepository.deleteById(id);
+    }
+
+
+
+    public List<Withdrawal> getAllWithdrawalsByAccountId(Long id) {
+        List<Withdrawal> withdrawals = new ArrayList<>();
+        withdrawalRepository.findAll().forEach(withdrawals::add);
+        List<Withdrawal> withdrawalListByAccountId = new ArrayList<>();
+        for (Withdrawal w: withdrawals){
+            if (w.getId().equals(id)){
+                withdrawalListByAccountId.add(w);
+            }
+        }
+        return withdrawalListByAccountId;
     }
 }
