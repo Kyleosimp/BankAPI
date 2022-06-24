@@ -1,7 +1,6 @@
 package yu.cohort11.BankAPI.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
 import yu.cohort11.BankAPI.models.Bill;
@@ -22,6 +21,7 @@ public class BillService {
             throw new ResourceNotFoundException("Bill with id " + id + " not found");
         }
     }
+
 
     //CREATE
     public Bill createBill(Bill bill){

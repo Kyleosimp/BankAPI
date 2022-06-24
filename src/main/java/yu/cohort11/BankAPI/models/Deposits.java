@@ -6,10 +6,7 @@ import yu.cohort11.BankAPI.models.enums.Status;
 import yu.cohort11.BankAPI.models.enums.Transactiontype;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Deposits {
@@ -32,10 +29,13 @@ private Double amount;
 
 private String description;
 
+@ManyToOne(cascade = CascadeType.ALL)
+private Account account;
+
     public Deposits() {
     }
 
-    public Deposits(Long id, Transactiontype type, String transaction_date, Status status, Long payee_id, Medium medium, Double amount, String description) {
+    public Deposits(Long id, Transactiontype type, String transaction_date, Status status, Long payee_id, Medium medium, Double amount, String description, Account account) {
         this.id = id;
         this.type = type;
         this.transaction_date = transaction_date;
@@ -44,6 +44,7 @@ private String description;
         this.medium = medium;
         this.amount = amount;
         this.description = description;
+        this.account = account;
     }
 
     public Long getId() {
@@ -110,6 +111,14 @@ private String description;
         this.description = description;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     @Override
     public String toString() {
         return "Deposits{" +
@@ -121,6 +130,7 @@ private String description;
                 ", medium=" + medium +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
+                ", account=" + account +
                 '}';
     }
 }
