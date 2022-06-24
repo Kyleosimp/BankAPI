@@ -16,14 +16,15 @@ import java.util.List;
 @RestController
 public class DepositsController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
+
     @Autowired
     private DepositsService depositsService;
-
-    private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
 
 
     @RequestMapping(value="/accounts/{accountId}/deposits", method = RequestMethod.POST)
     public ResponseEntity<?> createDeposit(@RequestBody Deposits deposits) {
+        logger.info("creating deposit" + deposits.toString());
        depositsService.saveDeposit(deposits);
         logger.info("successfully created deposit");
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -37,7 +38,7 @@ public class DepositsController {
 
     @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.PUT)
     public ResponseEntity<Deposits> updateDeposits(@PathVariable Long id, @RequestBody Deposits deposits) {
-        logger.info("successfully updated deposit with id: " + id);
+        logger.info("updating deposit with id of " + id + " with " + deposits.toString());
         return new ResponseEntity<>( depositsService.updateDeposit(id, deposits),  HttpStatus.OK);
     }
 
@@ -54,7 +55,6 @@ public class DepositsController {
     @RequestMapping (value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
     public ResponseEntity<List<Deposits>> getAllDepositsByAccountId(@PathVariable Long id) {
         logger.info("successfully retrieved all deposit for account id: " + id);
-
         return new ResponseEntity<>( depositsService.getAllDepositsByAccountID(id), HttpStatus.OK);
 
     }
