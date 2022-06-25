@@ -1,12 +1,15 @@
 package yu.cohort11.BankAPI.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.services.AccountService;
 
 import java.util.List;
 
+@RestController
 public class AccountController {
+    @Autowired
     private AccountService accountService;
 
     @GetMapping("/accounts")
@@ -34,7 +37,7 @@ public class AccountController {
         accountService.updateAccount(account,accountId);
     }
 
-    @PutMapping("/accounts/{accountId}")
+    @DeleteMapping("/accounts/{accountId}")
     public void deleteAccount(@PathVariable Long accountId){
         accountService.deleteAccount(accountId);
     }
