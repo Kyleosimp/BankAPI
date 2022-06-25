@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.BankApiApplication;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
+import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.services.BillService;
 
@@ -28,9 +29,9 @@ public class BillController {
 //    }
 
     @PostMapping("/accounts/{accountId}/bills")
-    public ResponseEntity<?> createBillFromAccount(@PathVariable String accountId, @RequestBody Bill bill){
+    public ResponseEntity<?> createBillFromAccount(@PathVariable Account account, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-        return new ResponseEntity<>(billService.createBillFromAccount(accountId, bill),HttpStatus.CREATED);
+        return new ResponseEntity<>(billService.createBillFromAccount(account, bill),HttpStatus.CREATED);
     }
 
     @GetMapping("/bill/{id}")
