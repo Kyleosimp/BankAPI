@@ -14,6 +14,7 @@ import yu.cohort11.BankAPI.services.BillService;
 
 
 @RestController
+@CrossOrigin("*")
 public class BillController {
 
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
@@ -29,9 +30,9 @@ public class BillController {
 //    }
 
     @PostMapping("/accounts/{accountId}/bills")
-    public ResponseEntity<?> createBillFromAccount(@PathVariable Account account, @RequestBody Bill bill){
+    public ResponseEntity<?> createBillFromAccount(@PathVariable Long accountId, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-        return new ResponseEntity<>(billService.createBillFromAccount(account, bill),HttpStatus.CREATED);
+        return new ResponseEntity<>(billService.createBillFromAccount(accountId, bill), HttpStatus.CREATED);
     }
 
     @GetMapping("/bill/{id}")

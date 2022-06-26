@@ -16,6 +16,8 @@ public class BillService {
 
     @Autowired
     private BillRepository billRepository;
+    private AccountService accountService;
+    private CustomerService customerService;
 
     protected void verifyId(Long id) throws ResourceNotFoundException {
         if (!billRepository.existsById(id)) {
@@ -87,8 +89,8 @@ public class BillService {
 //        return billRepository.save(bill);
 //
 //    }
-    public Bill createBillFromAccount(Account account, Bill bill) {
-        bill.setAccount(account);
+    public Bill createBillFromAccount(Long AccountId, Bill bill) {
+        bill.setAccount(accountService.getAccountById(AccountId));
         return billRepository.save(bill);
 
     }

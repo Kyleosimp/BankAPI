@@ -13,6 +13,7 @@ import yu.cohort11.BankAPI.services.AccountService;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class AccountController {
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
 
