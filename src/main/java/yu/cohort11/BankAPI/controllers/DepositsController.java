@@ -47,7 +47,7 @@ public class DepositsController {
     }
 
 
-    //NOT WORKING CORRECTLY
+
    @PutMapping("/deposits/{id}")
     public ResponseEntity<?> updateDeposits(@PathVariable Long id, @RequestBody Deposits deposits) {
         logger.info("updating deposit with id of " + id + " with " + deposits.toString());
