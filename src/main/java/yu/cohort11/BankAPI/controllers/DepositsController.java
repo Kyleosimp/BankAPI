@@ -15,6 +15,7 @@ import yu.cohort11.BankAPI.services.DepositsService;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class DepositsController {
 
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
