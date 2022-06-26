@@ -29,9 +29,9 @@ public class BillController {
 //    }
 
     @PostMapping("/accounts/{accountId}/bills")
-    public ResponseEntity<?> createBillFromAccount(@PathVariable Account account, @RequestBody Bill bill){
+    public ResponseEntity<?> createBillFromAccount(@PathVariable Long accountId, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-        return new ResponseEntity<>(billService.createBillFromAccount(account, bill),HttpStatus.CREATED);
+        return new ResponseEntity<>(billService.createBillFromAccount(accountId, bill), HttpStatus.CREATED);
     }
 
     @GetMapping("/bill/{id}")
