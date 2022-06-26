@@ -58,8 +58,8 @@ public class BillService {
         verifyId(id);
         billRepository.deleteById(id);
     }
-    //==================================================================================================================
-    //==================================================================================================================
+
+
     public List<Bill> getAllBillsByCustomerId(Long id) {
         List<Bill> billList = new ArrayList<>();
         billRepository.findAll().forEach(billList::add);
@@ -89,8 +89,9 @@ public class BillService {
 //        return billRepository.save(bill);
 //
 //    }
-    public Bill createBillFromAccount(Long AccountId, Bill bill) {
-        bill.setAccount(accountService.getAccountById(AccountId));
+
+    public Bill createBillFromAccount(Long accountId, Bill bill) {
+        bill.setAccount(accountService.getAccountById(accountId));
         return billRepository.save(bill);
 
     }
