@@ -12,6 +12,7 @@ import yu.cohort11.BankAPI.models.Withdrawal;
 import yu.cohort11.BankAPI.services.WithdrawalService;
 
 @RestController
+@CrossOrigin("*")
 public class WithdrawalController {
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
 

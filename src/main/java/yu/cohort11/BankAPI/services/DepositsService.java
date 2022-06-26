@@ -4,11 +4,14 @@ package yu.cohort11.BankAPI.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
+import yu.cohort11.BankAPI.models.Account;
+import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.models.Deposits;
 import yu.cohort11.BankAPI.repositories.DepositsRepos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DepositsService {
@@ -23,6 +26,10 @@ Delete
     @Autowired
     private DepositsRepos depositsRepos;
 
+
+    @Autowired
+    private AccountService accountService;
+
     protected void verifyId(Long id) throws ResourceNotFoundException {
         if (depositsRepos.existsById(id) == false) {
             throw new ResourceNotFoundException("Deposit with id " + id + " not found");
@@ -33,22 +40,45 @@ Delete
 
     public List<Deposits> getALLDeposits(){
 
-        depositsRepos.findAll().forEach(depositsList::add );
+        List<Deposits> depositsArrayList = new ArrayList<>();
+        depositsRepos.findAll().forEach(depositsArrayList::add );
 
-        return depositsList;
+        return depositsArrayList;
     }
 
-    public List<Deposits> getAllDepositsByAccountID (Long id){
-        verifyId(id);
-        List<Deposits> depositsList = new ArrayList<>();
-        for (Deposits d:getALLDeposits() ){
-           if(d.getAccount().getId() == id){
-               depositsList.add(d);
-          }
 
+
+//    public List<Deposits> getAllDepositsByAccountID (Long id){
+//        verifyId(id);
+//       // List<Deposits> depositsList = new ArrayList<>();
+//        for (Deposits d:getALLDeposits() ){
+//           if(d.getAccount().getId() == id ){
+//               depositsList.add(d);
+//          }
+//
+//        }
+//       return depositsList;
+//    }
+
+    public List<Deposits> getAllDepositsByAccountId(Long Accountid){
+        List<Deposits> depositsList1 = new ArrayList<>();
+        depositsRepos.findAll().forEach(depositsList1:: add);
+        List<Deposits> depositsListByAccountId = new ArrayList<>();
+        for (Deposits d: depositsList1){
+            if( d.getAccount().getId() == Accountid ){
+                depositsListByAccountId.add(d);
+            }
         }
-       return depositsList;
+
+
+        return depositsListByAccountId;
     }
+
+
+
+
+
+
 
  //   get deposits by id
 
@@ -68,23 +98,28 @@ public void addDeposit(Deposits deposits){
         depositsRepos.save(deposits);
 }
 
-public void deleteDeposit(Long id){
-    verifyId(id);
+public void deleteDepositById(Long id){
+        verifyId(id);
         depositsRepos.deleteById(id);
 }
 
-public void saveDeposit(Deposits deposits){
-        depositsRepos.save(deposits);
-}
 
     public Deposits updateDeposit(Long id, Deposits deposits) {
         verifyId(id);
         for (Deposits d : getALLDeposits()) {
-            if (d.getId() == id ) {
+            if (d.getId() == id) {
                 depositsRepos.save(deposits);
             }
         }
-        return deposits;
+        return  deposits;
+    }
+
+
+    public Deposits createDepositFromAccount(Long accountId, Deposits deposits) {
+        deposits.setAccount(accountService.getAccountById(accountId));
+
+        return depositsRepos.save(deposits);
+
     }
 
 }

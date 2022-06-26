@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 public class CustomerController {
 
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
