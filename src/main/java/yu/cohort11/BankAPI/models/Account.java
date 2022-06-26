@@ -17,10 +17,7 @@ public class Account {
     private Integer rewards;
     private Double balance;
 
-//    @JsonIgnore
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-//    private Set<Deposits> setofDeposits;
-//
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
