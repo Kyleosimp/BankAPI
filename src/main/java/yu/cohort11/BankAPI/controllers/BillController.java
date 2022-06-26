@@ -14,6 +14,7 @@ import yu.cohort11.BankAPI.services.BillService;
 
 
 @RestController
+@CrossOrigin("*")
 public class BillController {
 
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);

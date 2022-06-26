@@ -8,6 +8,7 @@ import yu.cohort11.BankAPI.services.AccountService;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class AccountController {
     @Autowired
     private AccountService accountService;
