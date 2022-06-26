@@ -63,7 +63,7 @@ public class DepositsController {
     public ResponseEntity<?> deleteDeposits(@PathVariable Long id) {
         logger.info("successfully deleted deposit with id: " + id);
        depositsService.deleteDepositById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
