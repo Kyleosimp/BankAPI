@@ -1,8 +1,10 @@
 package yu.cohort11.BankAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import yu.cohort11.BankAPI.models.enums.AccountType;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -14,17 +16,25 @@ public class Account {
     private String nickname;
     private Integer rewards;
     private Double balance;
+
+//    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+//    private Set<Deposits> setofDeposits;
+//
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    public Account(Long id, AccountType type, String nickname, Integer rewards, Double balance, Customer customer) {
+    public Account(Long id, AccountType type, String nickname, Integer rewards, Double balance,  Customer customer) {
         this.id = id;
         this.type = type;
         this.nickname = nickname;
         this.rewards = rewards;
         this.balance = balance;
+
         this.customer = customer;
     }
+
 
     public Account(){
 
