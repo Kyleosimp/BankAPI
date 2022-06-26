@@ -56,6 +56,6 @@ public class AccountController {
     public ResponseEntity<?> deleteAccount(@PathVariable Long accountId){
         logger.info("Deleted account: "+accountId);
         accountService.deleteAccount(accountId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

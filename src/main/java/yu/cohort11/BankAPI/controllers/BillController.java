@@ -58,7 +58,7 @@ public class BillController {
     public ResponseEntity<?> deleteBillById(@PathVariable Long id){
         logger.info("deleting customer with id " + id);
         billService.deleteBillById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/customer/{id}/bill")
