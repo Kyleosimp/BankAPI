@@ -1,9 +1,23 @@
 package yu.cohort11.BankAPI.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum AccountType {
-    SAVINGS("savings"),CHECKING("checking"),CREDIT("credit");
+
+    @JsonProperty("Checking")
+    CHECKING,
+
+    @JsonProperty("Savings")
+    SAVINGS,
+
+    @JsonProperty("Credit")
+    CREDIT;
 
     private String accountType;
+
+    AccountType(){
+
+    }
 
     AccountType(String accountType) {
         this.accountType = accountType;

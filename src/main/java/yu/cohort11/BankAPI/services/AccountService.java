@@ -34,7 +34,6 @@ public class AccountService {
         for(Account account:getAllAccounts()){
             if(account.getId().equals(id)){
                 tmpAccount = account;
-                System.out.println(tmpAccount);
             }
         }
         return tmpAccount;

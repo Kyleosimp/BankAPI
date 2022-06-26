@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private AccountType type;
     private String nickname;
