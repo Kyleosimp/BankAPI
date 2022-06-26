@@ -30,7 +30,7 @@ public class DepositsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/deposits", method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts/deposits", method = RequestMethod.GET)
     public ResponseEntity<List<Deposits>> getAllDeposits(){
         logger.info("successfully retrieved all deposits");
         return new ResponseEntity<>( depositsService.getALLDeposits(), HttpStatus.OK);
