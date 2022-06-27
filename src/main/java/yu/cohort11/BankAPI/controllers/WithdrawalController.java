@@ -9,20 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.BankApiApplication;
 
 import yu.cohort11.BankAPI.models.Withdrawal;
+import yu.cohort11.BankAPI.services.AccountService;
 import yu.cohort11.BankAPI.services.WithdrawalService;
 
 @RestController
+@CrossOrigin("*")
 public class WithdrawalController {
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
 
     @Autowired
     private WithdrawalService withdrawalService;
-
-    @PostMapping("accounts/{id}/withdrawals")
-    public ResponseEntity<?> createWithdrawal(@RequestBody Withdrawal withdrawal){
-        logger.info("Creating withdrawal " + withdrawal);
-        withdrawalService.saveWithdrawal(withdrawal);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @Autowired
+    private AccountService accountService;
+    @PostMapping("/accounts/{accountId}/withdrawals")
+    public ResponseEntity<?> createWithdrawal (@PathVariable Long accountId, @RequestBody Withdrawal withdrawal){
+        logger.info("Creating a withdrawal for account " + accountId);
+        withdrawalService.createWithdrawalFromAccount(accountId, withdrawal);
+        return new ResponseEntity<>( HttpStatus.CREATED);
     }
 
 
@@ -40,7 +43,7 @@ public class WithdrawalController {
     public ResponseEntity<?> deleteWithdrawal(@PathVariable Long id) {
         logger.info("successfully deleted withdrawal with id " + id);
         withdrawalService.deleteWithdrawal(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @GetMapping("/withdrawals/{id}")
     public ResponseEntity<?> getWithdrawalById(@PathVariable Long id) {

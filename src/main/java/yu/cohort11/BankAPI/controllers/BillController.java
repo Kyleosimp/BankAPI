@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.BankApiApplication;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
+import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.services.BillService;
 
 
 @RestController
+@CrossOrigin("*")
 public class BillController {
 
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
@@ -28,9 +30,9 @@ public class BillController {
 //    }
 
     @PostMapping("/accounts/{accountId}/bills")
-    public ResponseEntity<?> createBillFromAccount(@PathVariable String accountId, @RequestBody Bill bill){
+    public ResponseEntity<?> createBillFromAccount(@PathVariable Long accountId, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-        return new ResponseEntity<>(billService.createBillFromAccount(accountId, bill),HttpStatus.CREATED);
+        return new ResponseEntity<>(billService.createBillFromAccount(accountId, bill), HttpStatus.CREATED);
     }
 
     @GetMapping("/bill/{id}")
@@ -56,7 +58,7 @@ public class BillController {
     public ResponseEntity<?> deleteBillById(@PathVariable Long id){
         logger.info("deleting customer with id " + id);
         billService.deleteBillById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/customer/{id}/bill")

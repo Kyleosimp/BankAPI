@@ -15,6 +15,8 @@ import java.util.Optional;
 public class WithdrawalService {
     @Autowired
     private WithdrawalRepository withdrawalRepository;
+    @Autowired
+    private AccountService accountService;
 
     protected void verifyId(Long id) throws ResourceNotFoundException {
         if (withdrawalRepository.existsById(id) == false) {
@@ -61,5 +63,11 @@ public class WithdrawalService {
 
         }
         return withdrawals;
+    }
+    public Withdrawal createWithdrawalFromAccount(Long accountId, Withdrawal withdrawal) {
+        withdrawal.setAccount(accountService.getAccountById(accountId));
+
+        return withdrawalRepository.save(withdrawal);
+
     }
 }

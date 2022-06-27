@@ -18,6 +18,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@CrossOrigin("*")
 public class CustomerController {
 
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
@@ -29,34 +31,31 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
 
-    @PostMapping("/Customers")
+    @PostMapping("/customers")
     public ResponseEntity<?> addCustomer(@Validated @RequestBody Customer customer){
-        logger.info("Successfully ADDED an order with name :" + customer);
+        logger.info("Successfully ADDED a customer :" + customer.toString());
         customerService.saveCustomer(customer);
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newPollUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(customer.getId()).toUri();
-        responseHeaders.setLocation(newPollUri);
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
-    @PutMapping("/customer/{id}")
+    @PutMapping("/customers/{id}")
     public ResponseEntity<Optional<Customer>> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
-        logger.info("updating customer order with id :" + id);
+        logger.info("updating customerer with id :" + id + "to " + customer.toString());
         return new ResponseEntity (this.customerService.updateCustomer(id,customer), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/customers/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
-        logger.info("successfully retrieved order with id :" + id);
+        logger.info("successfully retrieved customer with id :" + id);
         return new ResponseEntity<>(this.customerService.getCustomerById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/customers/{id}")
     public  ResponseEntity<?> deleteCustomerById(@PathVariable Long id){
-        logger.info("successfully DELETED an order from list with id: " +id);
+        logger.info("successfully DELETED a customer from list with id: " +id);
         customerService.deleteCustomerById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
 
@@ -65,7 +64,7 @@ public class CustomerController {
         if(id != null){
             return new ResponseEntity<>(customerRepository.findCustomerById(id),HttpStatus.OK);
         }
-        logger.info("Successfully retrieved all customer order " );
+        logger.info("Successfully retrieved all customers  " );
 
         return new ResponseEntity<>( customerService.getAllCustomer(),HttpStatus.OK);
     }

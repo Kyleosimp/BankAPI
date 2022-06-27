@@ -1,6 +1,7 @@
 package yu.cohort11.BankAPI.models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import yu.cohort11.BankAPI.models.enums.Medium;
 import yu.cohort11.BankAPI.models.enums.Status;
 import yu.cohort11.BankAPI.models.enums.Transactiontype;

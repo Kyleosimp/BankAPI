@@ -3,6 +3,7 @@ package yu.cohort11.BankAPI.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
+import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.repositories.BillRepository;
 
@@ -15,6 +16,8 @@ public class BillService {
 
     @Autowired
     private BillRepository billRepository;
+    private AccountService accountService;
+    private CustomerService customerService;
 
     protected void verifyId(Long id) throws ResourceNotFoundException {
         if (!billRepository.existsById(id)) {
@@ -81,8 +84,13 @@ public class BillService {
         return billListByAccountId;
     }
 
-    public Bill createBillFromAccount(String account_Id, Bill bill) {
-        bill.setAccount_id(account_Id);
+//    public Bill createBillFromAccount(String account_Id, Bill bill) {
+//        bill.setAccount_id(account_Id);
+//        return billRepository.save(bill);
+//
+//    }
+    public Bill createBillFromAccount(Long AccountId, Bill bill) {
+        bill.setAccount(accountService.getAccountById(AccountId));
         return billRepository.save(bill);
 
     }
