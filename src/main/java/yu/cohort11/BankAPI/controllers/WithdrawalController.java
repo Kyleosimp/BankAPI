@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import yu.cohort11.BankAPI.BankApiApplication;
 
 import yu.cohort11.BankAPI.models.Withdrawal;
+import yu.cohort11.BankAPI.services.AccountService;
 import yu.cohort11.BankAPI.services.WithdrawalService;
 
 @RestController
@@ -18,12 +19,13 @@ public class WithdrawalController {
 
     @Autowired
     private WithdrawalService withdrawalService;
-
-    @PostMapping("accounts/{id}/withdrawals")
-    public ResponseEntity<?> createWithdrawal(@RequestBody Withdrawal withdrawal){
-        logger.info("Creating withdrawal " + withdrawal);
-        withdrawalService.saveWithdrawal(withdrawal);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @Autowired
+    private AccountService accountService;
+    @PostMapping("/accounts/{accountId}/withdrawals")
+    public ResponseEntity<?> createWithdrawal (@PathVariable Long accountId, @RequestBody Withdrawal withdrawal){
+        logger.info("Creating a withdrawal for account " + accountId);
+        withdrawalService.createWithdrawalFromAccount(accountId, withdrawal);
+        return new ResponseEntity<>( HttpStatus.CREATED);
     }
 
 
