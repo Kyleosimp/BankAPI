@@ -16,7 +16,9 @@ public class BillService {
 
     @Autowired
     private BillRepository billRepository;
+    @Autowired
     private AccountService accountService;
+    @Autowired
     private CustomerService customerService;
 
     protected void verifyId(Long id) throws ResourceNotFoundException {
