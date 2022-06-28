@@ -2,6 +2,7 @@ package yu.cohort11.BankAPI.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
 import yu.cohort11.BankAPI.models.Withdrawal;
@@ -49,9 +50,17 @@ public class WithdrawalService {
         }
         return withdrawal;
     }
-    public void deleteWithdrawal(Long id){
+    //    public void deleteWithdrawal(Long id){
+//        verifyId(id);
+//        withdrawalRepository.deleteById(id);
+//    }
+    public void deleteWithdrawal(Long id) {
         verifyId(id);
-        withdrawalRepository.deleteById(id);
+        for(Withdrawal withdrawal:getAllWithdrawals()){
+            if(withdrawal.getId().equals(id)){
+                withdrawalRepository.delete(withdrawal);
+            }
+        }
     }
     public List<Withdrawal> getAllWithdrawalsByAccountId (Long id){
         verifyId(id);
