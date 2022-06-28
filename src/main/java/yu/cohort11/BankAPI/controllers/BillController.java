@@ -29,10 +29,10 @@ public class BillController {
 //        return new ResponseEntity<>(HttpStatus.CREATED);
 //    }
 
-    @PostMapping("/accounts/{accountId}/bills")
-    public ResponseEntity<?> createBillFromAccount(@PathVariable Long accountId, @RequestBody Bill bill){
+    @PostMapping("/accounts/{id}/bill")
+    public ResponseEntity<?> createBillFromAccount(@PathVariable Long id, @RequestBody Bill bill){
         logger.info("Creating bill" + bill.toString());
-        return new ResponseEntity<>(billService.createBillFromAccount(accountId, bill), HttpStatus.CREATED);
+        return new ResponseEntity<>(billService.createBillFromAccount(id, bill), HttpStatus.CREATED);
     }
 
     @GetMapping("/bill/{id}")

@@ -89,8 +89,8 @@ public class BillService {
 //        return billRepository.save(bill);
 //
 //    }
-    public Bill createBillFromAccount(Long AccountId, Bill bill) {
-        bill.setAccount(accountService.getAccountById(AccountId));
+    public Bill createBillFromAccount(Long id, Bill bill) {
+        bill.setAccount(accountService.getAccountById(id));
         return billRepository.save(bill);
 
     }
