@@ -14,7 +14,8 @@ import yu.cohort11.BankAPI.services.WithdrawalService;
 
 @RestController
 @CrossOrigin("*")
-public class WithdrawalController {
+
+public class WithdrawalController{
     private static final Logger logger = LoggerFactory.getLogger(BankApiApplication.class);
 
     @Autowired
@@ -39,7 +40,7 @@ public class WithdrawalController {
         logger.info("Updating withdrawal of id " + id + " to " + withdrawal.toString());
         return new ResponseEntity<>(withdrawalService.updateWithdrawal(id,withdrawal), HttpStatus.OK);
     }
-    @DeleteMapping("/withdrawals/{id}")
+    @DeleteMapping("accounts/withdrawals/{id}")
     public ResponseEntity<?> deleteWithdrawal(@PathVariable Long id) {
         logger.info("successfully deleted withdrawal with id " + id);
         withdrawalService.deleteWithdrawal(id);
