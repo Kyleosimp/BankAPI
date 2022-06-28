@@ -39,7 +39,7 @@ public class WithdrawalController {
         logger.info("Updating withdrawal of id " + id + " to " + withdrawal.toString());
         return new ResponseEntity<>(withdrawalService.updateWithdrawal(id,withdrawal), HttpStatus.OK);
     }
-    @DeleteMapping("/withdrawals/{id}")
+    @DeleteMapping("accounts/withdrawals/{id}")
     public ResponseEntity<?> deleteWithdrawal(@PathVariable Long id) {
         logger.info("successfully deleted withdrawal with id " + id);
         withdrawalService.deleteWithdrawal(id);
