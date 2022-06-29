@@ -92,6 +92,8 @@ public class BillService {
 //
 //    }
     public Bill createBillFromAccount(Long id, Bill bill) {
+        Double tmpBalance = accountService.getAccountById(id).getBalance();
+        tmpBalance -= bill.getPayment_amount();
         bill.setAccount(accountService.getAccountById(id));
         return billRepository.save(bill);
 

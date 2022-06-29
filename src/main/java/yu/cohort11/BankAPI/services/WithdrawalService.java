@@ -74,6 +74,8 @@ public class WithdrawalService {
         return withdrawals;
     }
     public Withdrawal createWithdrawalFromAccount(Long accountId, Withdrawal withdrawal) {
+        Double tmpBalance = accountService.getAccountById(accountId).getBalance();
+        tmpBalance -= withdrawal.getAmount();
         withdrawal.setAccount(accountService.getAccountById(accountId));
 
         return withdrawalRepository.save(withdrawal);
