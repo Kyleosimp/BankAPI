@@ -116,6 +116,8 @@ public void deleteDepositById(Long id){
 
 
     public Deposits createDepositFromAccount(Long accountId, Deposits deposits) {
+        Double tmpBalance = accountService.getAccountById(accountId).getBalance();
+        tmpBalance += deposits.getAmount();
         deposits.setAccount(accountService.getAccountById(accountId));
 
         return depositsRepos.save(deposits);
