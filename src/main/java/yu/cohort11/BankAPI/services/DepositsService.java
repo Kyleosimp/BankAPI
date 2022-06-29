@@ -123,6 +123,7 @@ public void deleteDepositById(Long id){
         tmpBalance += deposits.getAmount();
         accountService.getAccountById(accountId).setBalance(tmpBalance);
         deposits.setAccount(accountService.getAccountById(accountId));
+        deposits.setTmp_account_balance(tmpBalance);
 
         return depositsRepos.save(deposits);
     }

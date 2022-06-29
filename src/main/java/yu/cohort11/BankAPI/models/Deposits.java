@@ -29,6 +29,7 @@ private Medium medium;
 private Double amount;
 
 private String description;
+private Double tmp_account_balance;
 
 @ManyToOne(cascade = CascadeType.ALL)
 private Account account;
@@ -36,7 +37,7 @@ private Account account;
     public Deposits() {
     }
 
-    public Deposits(Long id, Transactiontype type, String transaction_date, Status status, Long payee_id, Medium medium, Double amount, String description, Account account) {
+    public Deposits(Long id, Transactiontype type, String transaction_date, Status status, Long payee_id, Medium medium, Double amount, String description, Double tmp_account_balance, Account account) {
         this.id = id;
         this.type = type;
         this.transaction_date = transaction_date;
@@ -45,6 +46,7 @@ private Account account;
         this.medium = medium;
         this.amount = amount;
         this.description = description;
+        this.tmp_account_balance = tmp_account_balance;
         this.account = account;
     }
 
@@ -118,6 +120,14 @@ private Account account;
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Double getTmp_account_balance() {
+        return tmp_account_balance;
+    }
+
+    public void setTmp_account_balance(Double tmp_account_balance) {
+        this.tmp_account_balance = tmp_account_balance;
     }
 
     @Override

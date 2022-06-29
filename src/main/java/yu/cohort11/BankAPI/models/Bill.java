@@ -17,6 +17,7 @@ public class Bill {
     private Integer recurring_date;
     private String upcoming_payment_date;
     private Double payment_amount;
+    private Double tmp_account_balance;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Account account;
@@ -41,7 +42,8 @@ public class Bill {
 //        this.account_id = account_id;
 //    }
 
-public Bill(Long id, String status, String payee, String nickname, String creation_date, String payment_date, Integer recurring_date, String upcoming_payment_date, Double payment_amount, Account account, Customer customer) {
+
+    public Bill(Long id, String status, String payee, String nickname, String creation_date, String payment_date, Integer recurring_date, String upcoming_payment_date, Double payment_amount, Double tmp_account_balance, Account account, Customer customer) {
         this.id = id;
         this.status = status;
         this.payee = payee;
@@ -51,10 +53,10 @@ public Bill(Long id, String status, String payee, String nickname, String creati
         this.recurring_date = recurring_date;
         this.upcoming_payment_date = upcoming_payment_date;
         this.payment_amount = payment_amount;
+        this.tmp_account_balance = tmp_account_balance;
         this.account = account;
         this.customer = customer;
     }
-
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
@@ -149,6 +151,14 @@ public Bill(Long id, String status, String payee, String nickname, String creati
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public Double getTmp_account_balance() {
+        return tmp_account_balance;
+    }
+
+    public void setTmp_account_balance(Double tmp_account_balance) {
+        this.tmp_account_balance = tmp_account_balance;
     }
 
     @Override
