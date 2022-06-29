@@ -6,6 +6,7 @@ import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
 import yu.cohort11.BankAPI.models.Withdrawal;
+import yu.cohort11.BankAPI.repositories.AccountRepository;
 import yu.cohort11.BankAPI.repositories.WithdrawalRepository;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import java.util.Optional;
 public class WithdrawalService {
     @Autowired
     private WithdrawalRepository withdrawalRepository;
+    @Autowired
+    private AccountRepository accountRepository;
     @Autowired
     private AccountService accountService;
 
@@ -76,6 +79,7 @@ public class WithdrawalService {
     public Withdrawal createWithdrawalFromAccount(Long accountId, Withdrawal withdrawal) {
         Double tmpBalance = accountService.getAccountById(accountId).getBalance();
         tmpBalance -= withdrawal.getAmount();
+        accountService.getAccountById(accountId).setBalance(tmpBalance);
         withdrawal.setAccount(accountService.getAccountById(accountId));
 
         return withdrawalRepository.save(withdrawal);

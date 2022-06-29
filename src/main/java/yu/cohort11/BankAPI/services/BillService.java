@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
 import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.models.Bill;
+import yu.cohort11.BankAPI.repositories.AccountRepository;
 import yu.cohort11.BankAPI.repositories.BillRepository;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class BillService {
 
     @Autowired
     private BillRepository billRepository;
+    @Autowired
+    private AccountRepository accountRepository;
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -94,7 +97,9 @@ public class BillService {
     public Bill createBillFromAccount(Long id, Bill bill) {
         Double tmpBalance = accountService.getAccountById(id).getBalance();
         tmpBalance -= bill.getPayment_amount();
+        accountService.getAccountById(id).setBalance(tmpBalance);
         bill.setAccount(accountService.getAccountById(id));
+
         return billRepository.save(bill);
 
     }

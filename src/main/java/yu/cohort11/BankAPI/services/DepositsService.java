@@ -7,6 +7,7 @@ import yu.cohort11.BankAPI.exception.ResourceNotFoundException;
 import yu.cohort11.BankAPI.models.Account;
 import yu.cohort11.BankAPI.models.Bill;
 import yu.cohort11.BankAPI.models.Deposits;
+import yu.cohort11.BankAPI.repositories.AccountRepository;
 import yu.cohort11.BankAPI.repositories.DepositsRepos;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ Delete
 */
     @Autowired
     private DepositsRepos depositsRepos;
+    @Autowired
+    private AccountRepository accountRepository;
 
 
     @Autowired
@@ -118,10 +121,10 @@ public void deleteDepositById(Long id){
     public Deposits createDepositFromAccount(Long accountId, Deposits deposits) {
         Double tmpBalance = accountService.getAccountById(accountId).getBalance();
         tmpBalance += deposits.getAmount();
+        accountService.getAccountById(accountId).setBalance(tmpBalance);
         deposits.setAccount(accountService.getAccountById(accountId));
 
         return depositsRepos.save(deposits);
-
     }
 
 }
