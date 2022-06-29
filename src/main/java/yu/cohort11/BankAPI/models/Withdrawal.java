@@ -18,6 +18,8 @@ public class Withdrawal {
     private Medium medium;
     private Double amount;
     private String description;
+    private Double tmp_account_balance;
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Account account;
@@ -27,7 +29,7 @@ public class Withdrawal {
     }
 
 
-    public Withdrawal(Long id, Transactiontype type, String transactionDate, Status status, Medium medium, Double amount, String description, Account account) {
+    public Withdrawal(Long id, Transactiontype type, String transactionDate, Status status, Medium medium, Double amount, String description, Double tmp_account_balance, Account account) {
         this.id = id;
         this.type = type;
         this.transactionDate = transactionDate;
@@ -35,6 +37,7 @@ public class Withdrawal {
         this.medium = medium;
         this.amount = amount;
         this.description = description;
+        this.tmp_account_balance = tmp_account_balance;
         this.account = account;
     }
 
@@ -102,6 +105,14 @@ public class Withdrawal {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Double getTmp_account_balance() {
+        return tmp_account_balance;
+    }
+
+    public void setTmp_account_balance(Double tmp_account_balance) {
+        this.tmp_account_balance = tmp_account_balance;
     }
 
     @Override

@@ -81,7 +81,7 @@ public class WithdrawalService {
         tmpBalance -= withdrawal.getAmount();
         accountService.getAccountById(accountId).setBalance(tmpBalance);
         withdrawal.setAccount(accountService.getAccountById(accountId));
-
+        withdrawal.setTmp_account_balance(tmpBalance);
         return withdrawalRepository.save(withdrawal);
 
     }

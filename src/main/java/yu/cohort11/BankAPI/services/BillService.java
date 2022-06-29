@@ -99,6 +99,7 @@ public class BillService {
         tmpBalance -= bill.getPayment_amount();
         accountService.getAccountById(id).setBalance(tmpBalance);
         bill.setAccount(accountService.getAccountById(id));
+        bill.setTmp_account_balance(tmpBalance);
 
         return billRepository.save(bill);
 
