@@ -41,10 +41,10 @@ public class LoanRequestController {
             return new ResponseEntity<String>("You qualify for a $5,000.00 loan", HttpStatus.OK);
         }
         else{
-            System.out.println("Please call our office to discuss your options.");
+            return new ResponseEntity<String>("Please call our office to discuss your options.", HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
 //    @PostMapping("/accounts/id/loanrequests")
